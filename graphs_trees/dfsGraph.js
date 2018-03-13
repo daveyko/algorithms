@@ -1,19 +1,13 @@
 const {hondaManufacturer} = require('./leastPath.js')
-// console.log(hondaManufacturer.nodes[0].children[2])
 
 function dfsGraph(graph){
   let stack = []
   let currNode
-  let counter = 0
   stack.push(graph.nodes[0])
   while(stack.length){
-    counter ++
-    if (counter > 20){
-      break
-    }
     currNode = stack[stack.length - 1]
     if (!currNode.visited) {
-    console.log(currNode.cost, stack.map(el => el.cost))
+    // console.log(currNode.cost, stack.map(el => el.cost))
     currNode.visited = true
     }
     if (!currNode.children.length || (currNode.children.filter(child => child.visited).length === currNode.children.length)) {
@@ -22,6 +16,7 @@ function dfsGraph(graph){
     } else {
       for (let i = 0; i < currNode.children.length; i ++){
         if (!currNode.children[i].visited){
+          console.log('node', currNode.children[i], 'stack!', stack)
           stack.push(currNode.children[i])
           break
         } else {
@@ -47,6 +42,4 @@ function dfsRecursive(graph){
   }
 }
 
-dfsRecursive(hondaManufacturer.nodes[0])
-// console.log(hondaManufacturer.nodes)
-// dfsGraph(hondaManufacturer)
+dfsGraph(hondaManufacturer)
